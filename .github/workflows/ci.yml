@@ -122,7 +122,7 @@ jobs:
           mkdir deploy
           cp -r backend deploy/backend
           cp -r frontend/dist deploy/frontend
-          cp whisper_server.py deploy/
+          cp backend/whisper_server.py deploy/
           cp README.md deploy/
 
       - name: 📦 Zip artifact
