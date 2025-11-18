@@ -1,4 +1,4 @@
-name: CI Pipeline for Voice Notes App
+name: CI Pipeline for Voice Notes App test
 
 on:
   push:
