@@ -1,0 +1,5 @@
+{
+  "watch": ["src"],
+  "ignore": ["uploads", "database.sqlite"],
+  "ext": "js,json"
+}
