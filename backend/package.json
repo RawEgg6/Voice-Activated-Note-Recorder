@@ -4,13 +4,13 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-  "test": "echo \"No backend tests yet\"",
-  "start": "node server.js",
-  "dev": "nodemon server.js",
-  "lint": "eslint src --format stylish || true",
-  "lint:report": "eslint src --format json -o lint-report.txt || true",
-  "coverage": "echo \"No backend tests ⇒ forcing coverage\" && mkdir -p coverage && echo '{\"coverage\":100}' > coverage/coverage.json"
-},
+    "test": "echo \"No backend tests yet\"",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "lint": "eslint src --format stylish || true",
+    "lint:report": "eslint src --format json -o lint-report.txt || true",
+    "coverage": "echo \"No backend tests ⇒ forcing coverage\" && mkdir -p coverage && echo '{\"coverage\":100}' > coverage/coverage.json"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -30,7 +30,11 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.5",
+    "@eslint/js": "^9.39.1",
     "babel-jest": "^29.7.0",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.5.0",
     "jest": "^29.7.0",
     "nodemon": "^3.1.11",
     "supertest": "^7.1.4"

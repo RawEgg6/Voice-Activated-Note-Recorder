@@ -3,7 +3,8 @@ import {
   fetchRecordings,
   fetchRecordingById,
   updateRecordingService,
-  deleteRecordingService
+  deleteRecordingService,
+  searchRecordingsService
 } from "../services/recordings.service.js";
 
 
