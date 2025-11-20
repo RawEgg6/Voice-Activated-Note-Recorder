@@ -1,56 +1,206 @@
 # Voice-Activated Note Recorder
 
-## Overview
-Voice-Activated Note Recorder is a system that allows users to:
-- Record voice notes
-- Transcribe audio into text
-- Store and retrieve notes securely
-- Search notes using keywords
+A simple web app that lets you record audio notes and automatically converts them to text. Record your thoughts, lectures, or meetings and get instant transcriptions in English, Hindi, or Hinglish.
 
-This repository targets both functional and non-functional requirements, emphasizing security and reliability. The project uses predominantly JavaScript (89.5%), with CSS, Python, and HTML for supporting features.
+**Main Features:**
+- 🎙️ Record audio with real-time waveform
+- 🤖 Automatic speech-to-text transcription
+- 🌍 Multi-language support (English, Hindi, Hinglish)
+- 📝 Edit, search, and manage your transcripts
+- 📄 Export notes as PDF
 
-## Functionalities
+---
 
-### 1. Voice Note Recording
-- Users interact with the system to record voice notes.
+## Table of Contents
 
-### 2. Transcription
-- Recorded notes are transcribed into text automatically.
+- [What You Need](#what-you-need)
+- [Installation](#installation)
+- [How to Run](#how-to-run)
+- [How to Use](#how-to-use)
+- [Troubleshooting](#troubleshooting)
+- [FAQ](#faq)
 
-### 3. Secure Storage
-- Transcribed notes are stored securely (details may vary depending on backend implementation; see source code for actual security mechanisms).
+---
 
-### 4. Keyword-Based Search
-- Users can search stored notes by entering keywords to retrieve relevant notes.
+## What You Need
 
-## Technology Stack
+- **Node.js** (version 18 or higher) - [Download here](https://nodejs.org/)
+- **Python** (version 3.8 or higher) - [Download here](https://www.python.org/)
+- **A working microphone**
+- **4GB RAM minimum** (8GB recommended)
 
-- **JavaScript:** Main application logic and user interface.
-- **CSS:** Styling for frontend components.
-- **Python:** Used for backend services such as transcription or processing.
-- **HTML:** Structure and layout of web pages.
+---
 
-## Quick Start
+## Installation
 
-> Please refer to the repository’s code and any provided documentation for setup and usage instructions. Actual setup steps depend on the implementation details found in the code.
+### Step 1: Clone the Project
 
-## Security & Requirements
+```bash
+git clone https://github.com/RawEgg6/Voice-Activated-Note-Recorder.git
+cd Voice-Activated-Note-Recorder
+```
 
-- Project aims to fulfill specified security objectives (refer to code for how notes are secured).
-- Meets functional and non-functional test criteria as outlined in documentation and/or code comments.
+### Step 2: Install Backend
 
-## Contributing
+```bash
+cd backend
+npm install
+```
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin feature/my-new-feature`)
-5. Create a new Pull Request
+Create a `.env` file in the `backend` folder:
+
+```env
+PORT=4000
+JWT_SECRET=your_secret_key_here_make_it_long_and_random
+WHISPER_API_URL=http://localhost:5000/transcribe
+```
+
+### Step 3: Install Frontend
+
+```bash
+cd frontend
+npm install
+```
+
+### Step 4: Install Transcription Server
+
+```bash
+# In the main project folder
+pip install flask faster-whisper
+```
+
+---
+
+## How to Run
+
+You need to run **three things** in separate terminal windows:
+
+### Terminal 1: Start Backend
+```bash
+cd backend
+npm run dev
+```
+✅ Backend running at `http://localhost:4000`
+
+### Terminal 2: Start Frontend
+```bash
+cd frontend
+npm run dev
+```
+✅ Frontend running at `http://localhost:5173`
+
+### Terminal 3: Start Transcription Server
+```bash
+python whisper_server.py
+```
+✅ Whisper server running at `http://localhost:5000`
+
+**Then open your browser and go to:** `http://localhost:5173`
+
+---
+
+## How to Use
+
+### 1. Create an Account
+- Go to `http://localhost:5173`
+- Click "Sign Up"
+- Enter email and password
+- Log in
+
+### 2. Record a Note
+- Click "New Recording" button
+- Enter a title for your note
+- Choose language (English/Hindi/Hinglish)
+- Click "🎙 Start Recording"
+- Allow microphone access if prompted
+- Speak clearly - you'll see the waveform moving
+- Click "⏹ Stop Recording" when done
+
+### 3. Upload and Transcribe
+- Listen to your recording
+- Click "Upload Recording"
+- Wait for it to transcribe (takes a few seconds)
+- Your note appears in the dashboard with the transcript
+
+### 4. Manage Your Notes
+- View all recordings in the dashboard
+- Click any note to see full transcript
+- Edit the title or transcript text
+- Search through your notes
+- Download as PDF
+- Delete notes you don't need
+
+---
+
+## Troubleshooting
+
+### "Microphone blocked" error
+- Check your browser settings and allow microphone access
+- Go to `chrome://settings/content/microphone` (Chrome)
+- Make sure the site is allowed to use the microphone
+
+### Transcription takes forever or fails
+- Make sure the Whisper server is running (`python whisper_server.py`)
+- First time running downloads a ~500MB model (one-time)
+- Check all three terminals are running without errors
+
+### Can't log in or sign up
+- Make sure backend is running (`npm run dev` in backend folder)
+- Check if `.env` file exists with `JWT_SECRET`
+
+### Upload fails
+- Create folder: `backend/uploads/audio/` if it doesn't exist
+- Make sure you have disk space
+
+### No audio in recording
+- Test your microphone in system settings
+- Try a different browser (Chrome works best)
+- Make sure correct microphone is selected in system sound settings
+
+---
+
+## FAQ
+
+**Q: Where are my recordings saved?**  
+A: Audio files are in `backend/uploads/audio/` and transcripts are in `backend/database.sqlite`
+
+**Q: Is my data private?**  
+A: Yes! Everything runs locally on your computer. Nothing is sent to the internet.
+
+**Q: Can I use this offline?**  
+A: Yes, after the first run downloads the Whisper model.
+
+**Q: What languages are supported?**  
+A: English, Hindi (Devanagari script), and Hinglish (Hindi in English letters)
+
+**Q: How accurate is the transcription?**  
+A: Pretty good for clear audio! About 90-95% accurate for English. Background noise reduces accuracy.
+
+**Q: Can I change the transcription quality?**  
+A: Yes! Edit `whisper_server.py` and change `"small"` to:
+- `"tiny"` - Fastest, less accurate
+- `"base"` - Fast, decent
+- `"small"` - Balanced (default)
+- `"medium"` - Slow, better
+- `"large-v2"` - Slowest, best
+
+**Q: How do I stop the servers?**  
+A: Press `Ctrl + C` in each terminal window
+
+---
 
 ## License
 
-Please see the LICENSE file for details.
+MIT License - free to use and modify!
 
-## Contact
+---
 
-Questions or suggestions? Open an issue in this repository.
+## Need Help?
+
+If something doesn't work:
+1. Check all three servers are running (backend, frontend, whisper)
+2. Look at the terminal for error messages
+3. Make sure your microphone works in other apps
+4. Try restarting everything
+
+**Enjoy recording your notes! 🎤📝**
